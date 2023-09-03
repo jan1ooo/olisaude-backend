@@ -3,6 +3,8 @@ package br.com.jan1ooo.apiolisaude.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -14,7 +16,8 @@ public class Cliente {
     private Long id_cliente;
     private String nome;
 
-    private Sexo sexo;
+    @NotNull
+    private String sexo;
 
     @OneToOne
     @JoinColumn(name = "id_problema")
@@ -28,15 +31,6 @@ public class Cliente {
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     @Column(name = "data_autorizacao")
     private LocalDateTime dataAutorizacao;
-
-    public Cliente(Long id_cliente, String nome, ProblemaSaude problemaSaude, Sexo sexo, LocalDateTime dataCriacao, LocalDateTime dataAutorizacao) {
-        this.id_cliente = id_cliente;
-        this.nome = nome;
-        this.problemaSaude = problemaSaude;
-        this.sexo = sexo;
-        this.dataCriacao = dataCriacao;
-        this.dataAutorizacao = dataAutorizacao;
-    }
 
     public Cliente() {
     }
@@ -65,11 +59,11 @@ public class Cliente {
         this.problemaSaude = problemaSaude;
     }
 
-    public Sexo getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(Sexo sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 

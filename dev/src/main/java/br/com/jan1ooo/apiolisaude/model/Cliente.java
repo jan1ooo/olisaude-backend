@@ -1,6 +1,8 @@
 package br.com.jan1ooo.apiolisaude.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Future;
 
 import java.time.LocalDateTime;
 
@@ -18,9 +20,12 @@ public class Cliente {
     @JoinColumn(name = "id_problema")
     private ProblemaSaude problemaSaude;
 
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
 
+    @Future
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     @Column(name = "data_autorizacao")
     private LocalDateTime dataAutorizacao;
 

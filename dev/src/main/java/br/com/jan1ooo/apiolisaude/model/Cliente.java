@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Cliente {
@@ -19,18 +21,16 @@ public class Cliente {
     @NotNull
     private String sexo;
 
-    @OneToOne
-    @JoinColumn(name = "id_problema")
-    private ProblemaSaude problemaSaude;
+    @OneToMany
+    private List<ProblemaSaude> problemaSaude = new ArrayList<>();
 
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
 
-    @Future
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
-    @Column(name = "data_autorizacao")
-    private LocalDateTime dataAutorizacao;
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    @Column(name = "data_atualizacao")
+    private LocalDateTime dataAtualizacao;
 
     public Cliente() {
     }
@@ -51,11 +51,11 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public ProblemaSaude getProblemaSaude() {
+    public List<ProblemaSaude> getProblemaSaude() {
         return problemaSaude;
     }
 
-    public void setProblemaSaude(ProblemaSaude problemaSaude) {
+    public void setProblemaSaude(List<ProblemaSaude> problemaSaude) {
         this.problemaSaude = problemaSaude;
     }
 
@@ -75,11 +75,11 @@ public class Cliente {
         this.dataCriacao = dataCriacao;
     }
 
-    public LocalDateTime getDataAutorizacao() {
-        return dataAutorizacao;
+    public LocalDateTime getDataAtualizacao() {
+        return dataAtualizacao;
     }
 
-    public void setDataAutorizacao(LocalDateTime dataAutorizacao) {
-        this.dataAutorizacao = dataAutorizacao;
+    public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
     }
 }

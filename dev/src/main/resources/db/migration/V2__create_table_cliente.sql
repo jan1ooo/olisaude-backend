@@ -4,6 +4,6 @@ CREATE TABLE cliente (
     sexo VARCHAR(9),
     id_problema SERIAL NOT NULL,
     data_criacao TIMESTAMP,
-    data_autorizacao TIMESTAMP,
+    data_atualizacao TIMESTAMP,
     CONSTRAINT fk_cliente_problema FOREIGN KEY (id_cliente) REFERENCES problema_saude(id_problema)
 );

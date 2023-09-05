@@ -28,4 +28,21 @@ public class ClienteController {
         return service.create(clienteDTO);
     }
 
+    @GetMapping("/cliente/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Cliente findById(@PathVariable Long id){
+        return service.findById(id);
+    }
+
+    @PutMapping("/cliente/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Cliente update(@PathVariable Long id, @RequestBody ClienteDTO cliente){
+        return service.update(id, cliente);
+    }
+
+    @PostMapping("/cliente/{id_cliente}/problema")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void associarProblemasDeSaudeAoCliente(@PathVariable Long id_cliente, @RequestBody List<Long> problemaSaudeIds) {
+        service.associarProblemasDeSaudeAoCliente(id_cliente, problemaSaudeIds);
+    }
 }

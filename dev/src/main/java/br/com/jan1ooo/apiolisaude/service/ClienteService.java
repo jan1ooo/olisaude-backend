@@ -1,10 +1,14 @@
 package br.com.jan1ooo.apiolisaude.service;
 
 import br.com.jan1ooo.apiolisaude.dto.ClienteDTO;
+import br.com.jan1ooo.apiolisaude.exception.BusinessException;
+import br.com.jan1ooo.apiolisaude.exception.RecordNotFoundException;
 import br.com.jan1ooo.apiolisaude.model.Cliente;
 import br.com.jan1ooo.apiolisaude.model.ProblemaSaude;
 import br.com.jan1ooo.apiolisaude.repository.ClienteRepository;
 import ch.qos.logback.core.net.server.Client;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,10 +31,13 @@ public class ClienteService {
     }
 
     public Cliente findById(Long id){
-        return repository.findById(id).get();
+        return repository.findById(id).orElseThrow(() -> new RecordNotFoundException(id));
     }
 
-    public Cliente create(ClienteDTO clienteDTO){
+    public Cliente create(@Valid ClienteDTO clienteDTO){
+        if(!clienteDTO.sexo().equalsIgnoreCase("Masculino") && !clienteDTO.sexo().equalsIgnoreCase("Feminino")){
+            throw new BusinessException("Sexo precisa ser preenchido com Masculino ou Feminino");
+        }
         Cliente cliente = new Cliente();
         cliente.setNome(clienteDTO.nome());
         cliente.setSexo(clienteDTO.sexo().toUpperCase());

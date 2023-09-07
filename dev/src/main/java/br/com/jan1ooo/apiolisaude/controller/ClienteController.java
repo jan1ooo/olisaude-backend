@@ -10,37 +10,35 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/cliente")
 public class ClienteController {
 
     @Autowired
     private ClienteService service;
 
-    @GetMapping("/clientes")
-    @ResponseStatus(HttpStatus.OK)
+    @GetMapping
     public List<Cliente> findAll(){
         return service.findAll();
     }
 
-    @PostMapping("/cliente/create")
+    @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     public Cliente create(@RequestBody ClienteDTO clienteDTO){
         return service.create(clienteDTO);
     }
 
-    @GetMapping("/cliente/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/{id}")
     public Cliente findById(@PathVariable Long id){
         return service.findById(id);
     }
 
-    @PutMapping("/cliente/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Cliente update(@PathVariable Long id, @RequestBody ClienteDTO cliente){
         return service.update(id, cliente);
     }
 
-    @PostMapping("/cliente/{id_cliente}/problema")
+    @PostMapping("/{id_cliente}/problema")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void associarProblemasDeSaudeAoCliente(@PathVariable Long id_cliente, @RequestBody List<Long> problemaSaudeIds) {
         service.associarProblemasDeSaudeAoCliente(id_cliente, problemaSaudeIds);

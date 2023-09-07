@@ -5,6 +5,8 @@ import br.com.jan1ooo.apiolisaude.repository.ProblemaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProblemaService {
 
@@ -13,6 +15,10 @@ public class ProblemaService {
 
     public ProblemaSaude findById(Long id){
         return repository.findById(id).get();
+    }
+
+    public List<ProblemaSaude> findAll(){
+        return repository.findAll();
     }
 
 }
